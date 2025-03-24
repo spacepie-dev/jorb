@@ -5,7 +5,7 @@ Are you a fan of [Jelly Hoshiumi?](https://www.youtube.com/@JellyHoshiumi) Have 
 
 Would you like to have a jorb that you can hold and take places?  Then this project is for you!
 
-![finished product](./doc/jorb_assembly.png "JORB amulet at CarrierCon 2025")
+![finished product](./doc/jorb_assembly.png "Jorb amulet at CarrierCon 2025")
 
 The jorb uses some off-the-shelf components and a simple 3D-printed enclosure.  All the source code you need is in this repository and the tools to compile and load the firmware are all freely available online.  No soldering is required to assemble the electronics, either!
 
@@ -23,7 +23,7 @@ This project went through multiple iterations where I switched back and forth be
 ## Arduino IDE and Board Support Package
 - Arduino IDE: 2.3.4
 - Board support package: esp32 by Espressif Systems 3.1.3
-The board support package is not a "stock" arduino BSP - you need to add a 3rd party board manager to get it.  Once you have Arduino 2.3.4 installed and open, click File->Preferences.  There's a field for "Additional boards manager URLs" - put *https://espressif.github.io/arduino-esp32/package_esp32_index.json* in this box.  You should then be able to add it by clicking the board manager icon (2nd from the top), typing "esp32" in the search bar, and installing the "esp32 by Expressif Systems" board support package.
+The board support package is not a "stock" arduino BSP - you need to add a 3rd party board manager to get it.  Once you have Arduino 2.3.4 installed and open, click File->Preferences.  There's a field for "Additional boards manager URLs" - put `https://espressif.github.io/arduino-esp32/package_esp32_index.json` in this box.  You should then be able to add it by clicking the board manager icon (2nd from the top), typing "esp32" in the search bar, and installing the "esp32 by Expressif Systems" board support package.
 
 ![bsp screenshot](./doc/esp32_board.png "esp32 board package in Arduino IDE")
 
