@@ -1,8 +1,11 @@
 # Introduction
 Are you a fan of [Jelly Hoshiumi?](https://www.youtube.com/@JellyHoshiumi) Have you seen the jorb, and found yourself mesmerized by it? 
+
 ![glory to the jorb](./doc/jorb.gif "jorb")
+
 Would you like to have a jorb that you can hold and take places?  Then this project is for you!
-![finished product](./doc/jorb_assembly.png)
+
+![finished product](./doc/jorb_assembly.png "JORB amulet at CarrierCon 2025")
 
 The jorb uses some off-the-shelf components and a simple 3D-printed enclosure.  All the source code you need is in this repository and the tools to compile and load the firmware are all freely available online.  No soldering is required to assemble the electronics, either!
 
@@ -21,12 +24,15 @@ This project went through multiple iterations where I switched back and forth be
 - Arduino IDE: 2.3.4
 - Board support package: esp32 by Espressif Systems 3.1.3
 The board support package is not a "stock" arduino BSP - you need to add a 3rd party board manager to get it.  Once you have Arduino 2.3.4 installed and open, click File->Preferences.  There's a field for "Additional boards manager URLs" - put *https://espressif.github.io/arduino-esp32/package_esp32_index.json* in this box.  You should then be able to add it by clicking the board manager icon (2nd from the top), typing "esp32" in the search bar, and installing the "esp32 by Expressif Systems" board support package.
-![bsp screenshot](./doc/esp32_board.png)
+
+![bsp screenshot](./doc/esp32_board.png "esp32 board package in Arduino IDE")
 
 ## Arduino Libraries
 To install libraries, click on the libraries icon (3rd one down) and type the name in the search box. Click 'install' and the library will be added to your IDE.  You might get a popup asking if you want to also install dependencies for each library - you do! 
 You might need to use the drop-down to select a specific version.  For example, between when I got the jorb working and when I made this writeup there was already a new version of the graphics library. 
-![library screenshot](./doc/library.png)
+
+![library screenshot](./doc/library.png "Arduino IDE library manager")
+
 - GFX Library for Arduino by Moon On Our Nation 1.5.5
 - Adafruit GFX Library 1.12.0
 - Adafruit FT6206 Library by Adafruit 1.1.0
@@ -47,7 +53,8 @@ bufferAndFlush() is a callback function that the gif object calls repeatedly.  F
 The notes on bufferAndFlush() above talk to the first couple tricks I pulled to get the jorb to look correct - simple upscaling and buffering an entire frame.  The last trick that finally made me happy enough to call it "good enough for now" was to rotate 90 degrees.  By aligning the motion of the jorb animation with the refresh scan of the display, any screen tearing just looks like a very slight stutter of the animation instead of an ugly seam splitting the image in half.  To make this truly work, however, I had to actually rotate the gif and the display itself - trying to do it by setting the screen rotation in software hurt the framerate because it added extra work!
 
 This rotation is what I was alluding to in [this tweet](https://x.com/apieinorbit/status/1900405161346163106).  That's where the name of the header file came from - I sped up the gif and rotated it 90 degrees. 
-![get rotated, idiot](./doc/turbojorb90.gif)
+
+![get rotated, idiot](./doc/turbojorb90.gif "get rotated, idiot")
 
 As I mentioned before, I tried doing the same thing with CircuitPython. It worked, but was not as fast.  I also had some difficulty getting the board to actually run CircuitPython and had to follow the Adafruit guide to [factory reset](https://learn.adafruit.com/adafruit-qualia-esp32-s3-for-rgb666-displays/factory-reset) the board and [install the CircuitPython uf2 file](https://learn.adafruit.com/adafruit-qualia-esp32-s3-for-rgb666-displays/circuitpython-5).  I'll put my CircuitPython version in this repo too, but I don't recommend it.
 
