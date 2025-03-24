@@ -4,11 +4,10 @@
 #include <AnimatedGIF.h> //tested with version 2.2.0
 
 #include "turbojorb90.h" //converted via https://github.com/bitbank2/image_to_c.git
-
 #define JORB_WIDTH 240
 #define JORB_HEIGHT 240
 
-#define SCALE 3 //720x720 for the 4" round display
+#define SCALE 3 //scale 3 to turn 240x240 into 720x720 for the 4" round display; use a scale of 2 with the 480x480 displays
 
 #define DISPLAY_WIDTH SCALE*JORB_WIDTH
 #define DISPLAY_HEIGHT SCALE*JORB_HEIGHT
@@ -24,9 +23,9 @@ Arduino_ESP32RGBPanel *rgbpanel = new Arduino_ESP32RGBPanel(
     TFT_B1, TFT_B2, TFT_B3, TFT_B4, TFT_B5,
 //    1 /* hsync_polarity */, 50 /* hsync_front_porch */, 2 /* hsync_pulse_width */, 44 /* hsync_back_porch */, //use this row with everything but the 4" round display
 //    1 /* vsync_polarity */, 16 /* vsync_front_porch */, 2 /* vsync_pulse_width */, 18 /* vsync_back_porch */  //use this row with everything but the 4" round display
-    1 /* hync_polarity */, 46 /* hsync_front_porch */, 2 /* hsync_pulse_width */, 44 /* hsync_back_porch */,
-    1 /* vsync_polarity */, 50 /* vsync_front_porch */, 16 /* vsync_pulse_width */, 16 /* vsync_back_porch */
-    ,1, 30000000
+    1 /* hync_polarity */, 46 /* hsync_front_porch */, 2 /* hsync_pulse_width */, 44 /* hsync_back_porch */,    //use this row with the 4" round display
+    1 /* vsync_polarity */, 50 /* vsync_front_porch */, 16 /* vsync_pulse_width */, 16 /* vsync_back_porch */   //use this row with the 4" round display
+//    ,1, 30000000
     );
 
 Arduino_RGB_Display *gfx = new Arduino_RGB_Display(
@@ -129,7 +128,7 @@ void loop() {
     Serial.printf("Successfully opened GIF; Canvas size = %d x %d, scale = %d\n", gif.getCanvasWidth(), gif.getCanvasHeight(), SCALE);
     gif.setFrameBuf(pFrameBuffer); // for Turbo+cooked, we need to supply a full sized output framebuffer
     gif.setTurboBuf(pTurboBuffer); // Set this before calling playFrame()
-    gif.setDrawType(GIF_DRAW_COOKED); // We want the library to generate ready-made pixels
+    gif.setDrawType(GIF_DRAW_COOKED); // We want the library to generate ready-made 16-bit pixels
     while (gif.playFrame(false, NULL))
     {}
     gif.close();
